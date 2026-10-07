@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 import math
-
+from procesar_imagen.resize_imagen import resize
 
 
 # Cargar la imagen y asegurarnos de que esté en modo RGB
