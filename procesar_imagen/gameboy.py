@@ -1,9 +1,8 @@
 import math
-
 import numpy as np
 from PIL import Image
+from procesar_imagen.resize_imagen import resize
 
-from resize_imagen import resize
 
 # Tamaño de la pantalla de la Game Boy
 ANCHO_PANTALLA = 160
