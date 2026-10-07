@@ -63,3 +63,7 @@ def filtro_gameboy(imagen_original: Image.Image) -> Image.Image:
             imagen_final[y, x] = GAMEBOY[indice]
 
     return Image.fromarray(imagen_final)
+
+if __name__ == "__main__":
+    imagen = Image.open('imagenes/marilyn.jpeg')
+    filtro_gameboy(imagen).show()
