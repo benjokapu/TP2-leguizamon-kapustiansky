@@ -3,6 +3,7 @@ from PIL import Image
 import solicitar_usuario
 from procesar_imagen.gameboy import filtro_gameboy
 from procesar_imagen.crt import filtro_crt
+from procesar_imagen.insertar_imagen import insertar_en_pantalla
 
 def main():
     while True:
@@ -33,8 +34,14 @@ def main():
 
         if pantalla == "gameboy":
             resultado = filtro_gameboy(imagen)
+            aparato = Image.open('imagenes/gameboy.png')
+            mascara = Image.open('imagenes/gameboy_mascara.png')
         else:
             resultado = filtro_crt(imagen, desplazamiento)
+            aparato = Image.open('imagenes/tv.png')
+            mascara = Image.open('imagenes/tv_mascara.png')
+
+        resultado = insertar_en_pantalla(resultado, aparato, mascara)
 
         # Para probar, falta la mascara
         resultado.save(ruta_salida)
