@@ -2,7 +2,7 @@ from PIL import Image
 
 import solicitar_usuario
 from procesar_imagen.gameboy import filtro_gameboy
-
+from procesar_imagen.crt import filtro_crt
 
 def main():
     while True:
@@ -33,6 +33,8 @@ def main():
 
         if pantalla == "gameboy":
             resultado = filtro_gameboy(imagen)
+        else:
+            resultado = filtro_crt(imagen, desplazamiento)
 
         # Para probar, falta la mascara
         resultado.save(ruta_salida)
