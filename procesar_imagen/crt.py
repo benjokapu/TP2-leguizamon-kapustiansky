@@ -69,5 +69,25 @@ def aplicar_desplazamiento(matriz_img: list, desplazamiento: int) -> list:
                 matriz_img_desplazada[y,x,2] = matriz_img[y, x + desplazamiento, 0]
     return matriz_img_desplazada
 
-
+def aplicar_scanlines(matriz_desplazada: list) -> list:
+    """
+    Quitarle color a las filas pares, multiplicando cada pixel por 0.5
+    y redondeando los valores para que queden enteros y no genero problemas
+    al pasar a imagen.
     
+    Args:
+        matriz_desplazada: Matriz ya con Red y Blue desplazados segun corresponda
+        type matriz_desplazada: list
+
+    Returns:
+        matriz_final: Matriz con valores finales
+        type: list
+    """
+
+    # Paso 1. Multiplicar filas pares por 0.5
+    matriz_multiplicada = np.multiply(matriz_desplazada[::2,:,:], 0.5)
+
+    # Paso 2. Redondear matriz nueva
+    matriz_final = np.round(matriz_multiplicada)
+
+    return matriz_final
