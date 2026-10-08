@@ -1,4 +1,3 @@
-import math
 import numpy as np
 from PIL import Image
 from procesar_imagen.resize_imagen import resize
