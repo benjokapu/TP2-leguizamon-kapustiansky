@@ -59,14 +59,19 @@ def aplicar_desplazamiento(matriz_img: list, desplazamiento: int) -> list:
     matriz_img_desplazada = matriz_img.copy()
 
     # Paso 2. Iterar por fila y columna (indices fijos)
-    for y in range(ALTO_PANTALLA):
-        for x in range(ANCHO_PANTALLA):
+    for n_fila in range(len(matriz_img_desplazada)):
+        columnas = matriz_img_desplazada[n_fila]
+        for columna in range(len(columnas)):
             # Paso 2,1. Si posicion desplazada no se va de indice cambiar valor de canal rojo y azul
             # sino dejar valores R y B constantes. G siempre constante.
-            if (x + desplazamiento) <= (ANCHO_PANTALLA - 1) and (x - desplazamiento) >= 0:
-                # Desplazamos R y B de la copia, G queda fijo
-                matriz_img_desplazada[y,x,0] = matriz_img[y, x - desplazamiento, 0]
-                matriz_img_desplazada[y,x,2] = matriz_img[y, x + desplazamiento, 0]
+            if (columna + desplazamiento) < len(columnas):
+                # Desplazamos B de la copia
+                matriz_img_desplazada[n_fila, columna, 2] = matriz_img[n_fila, columna + desplazamiento, 2]
+            
+            if (columna - desplazamiento) > 0:
+                # Desplazamos B de la copia
+                matriz_img_desplazada[n_fila, columna, 0] = matriz_img[n_fila, columna - desplazamiento, 0]
+
     return matriz_img_desplazada
 
 def aplicar_scanlines(matriz_desplazada: list) -> list:
@@ -83,11 +88,16 @@ def aplicar_scanlines(matriz_desplazada: list) -> list:
         matriz_final: Matriz con valores finales
         type: list
     """
+    # Paso 1. Copiar matriz desplazada para luego agregarle scanlines en filas pares
+    matriz_final = np.copy(matriz_desplazada)
 
-    # Paso 1. Multiplicar filas pares por 0.5
-    matriz_multiplicada = np.multiply(matriz_desplazada[::2,:,:], 0.5)
+    # Paso 2. Multiplicar filas pares por 0.5
+    matriz_filas_pares_multiplicada = np.multiply(matriz_desplazada[::2,:,:], 0.5)
 
-    # Paso 2. Redondear matriz nueva
-    matriz_final = np.round(matriz_multiplicada)
+    # Paso 3. Redondear matriz nueva
+    matriz_filas_pares_redondeadas_final = np.round(matriz_filas_pares_multiplicada)
+
+    # Paso 4. Agregar filas multiplicadas y redondeadas a matriz desplazada
+    matriz_final[::2,:,:] = matriz_filas_pares_redondeadas_final
 
     return matriz_final
