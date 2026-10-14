@@ -10,7 +10,7 @@ ALTO_PANTALLA = 240
 
 def filtro_crt(imagen_original: Image.Image, desplazamiento:int) -> Image.Image:
     """
-    Docstring para filtro_ctr
+    Docstring para filtro_crt
     
     :param imagen_original: Descripción
     :type imagen_original: Image.image
